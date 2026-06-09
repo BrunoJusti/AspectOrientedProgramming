@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+// Proxy objeto intermediário usado para inteceptar chamadas
+
 @SpringBootApplication
 public class AopApplication {
 
@@ -15,6 +17,7 @@ public class AopApplication {
     }
 
     @Bean
+    //ApplicationRunner executa o código após a inicialização
     ApplicationRunner runner(HelloService hs, DummyService ds) {
         return args -> {
             hs.hello();
