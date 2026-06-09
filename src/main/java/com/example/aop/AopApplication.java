@@ -17,7 +17,7 @@ public class AopApplication {
     }
 
     @Bean
-    //ApplicationRunner executa o código após a inicialização
+        //ApplicationRunner executa o código após a inicialização
     ApplicationRunner runner(HelloService hs, DummyService ds) {
         return args -> {
             hs.hello();

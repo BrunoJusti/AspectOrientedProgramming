@@ -1,6 +1,8 @@
 package com.example.aop;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -11,7 +13,7 @@ import org.springframework.stereotype.Component;
 // Registra uma classe genérica como bean
 public class LoggingAspect {
 
-    // Before executa uma ação antes do metodo alvo
+    // Before executa uma ação ANTES do metodo alvo
     // execution(...) define quais metodos serao interceptados
     @Before("execution(* com.example.aop.dummy.*.*(..))")
     // JoinPoint fornece informações sobre o metodo interceptado, como nome, argumentos, etc
@@ -25,4 +27,16 @@ public class LoggingAspect {
     public void logBefore(JoinPoint joinPoint) {
         System.out.println("Before: " + joinPoint.getSignature());
     }*/
+
+    // Around executa uma ação DURANTE a execução do metodo alvo
+    @Around("execution(* com.example.aop.dummy.*.*(..))")
+    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        System.out.println("Around Before: " + joinPoint.getSignature()); // ANTES
+
+        Object object = joinPoint.proceed(); // DURANTE
+
+        System.out.println("Around after: " + joinPoint.getSignature()); // DEPOIS
+
+        return object;
+    }
 }
